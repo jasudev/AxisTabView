@@ -44,7 +44,7 @@ AxisTabView(selection: $selection, constant: ATConstant(axisMode: .bottom)) { st
         .tabItem(tag: 2, normal: {
             Text("Tab 3")
         }, select: {
-            Text("Tab 4")
+            Text("Tab 3")
                 .bold()
                 .foregroundColor(Color.yellow)
         })
