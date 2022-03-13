@@ -46,7 +46,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                         .padding(edgeSet, constant.screen.activeSafeArea ? constant.tab.normalSize.height + getSafeArea(proxy) : 0)
                 }
                 .overlayPreferenceValue(ATTabItemPreferenceKey.self) { items in
-                    let items = items.prefix(getLimitItemCount(size: proxy.size))
+                    let items = items.prefix(getLimitItemCount(size: proxy.size, itemCount: items.count))
                     let state = ATTabState(constant: constant, itemCount: items.count, previousIndex: stateViewModel.previousIndex, currentIndex: stateViewModel.indexOfTag(viewModel.selection), size: proxy.size, safeAreaInsets: proxy.safeAreaInsets)
                     VStack(spacing: 0) {
                         if constant.axisMode == .bottom {
@@ -139,7 +139,8 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
     /// Returns the maximum number of tab buttons that can be displayed in the tab view.
     /// - Parameter size: The total size of the tab view.
     /// - Returns: -
-    private func getLimitItemCount(size: CGSize) -> Int {
+    private func getLimitItemCount(size: CGSize, itemCount: Int) -> Int {
+        guard itemCount > 0 else { return 0 }
         let total = size.width - (constant.tab.selectWidth > 0 ? constant.tab.selectWidth : constant.tab.normalSize.width)
         return Int(total * 0.85 / constant.tab.normalSize.width) + 1
     }
