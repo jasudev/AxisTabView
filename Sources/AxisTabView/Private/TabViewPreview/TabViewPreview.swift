@@ -34,7 +34,8 @@ struct TabViewPreview: View {
     init() {}
     var body: some View {
         AxisTabView(selection: $selection, constant: ATConstant(axisMode: .bottom)) { state in
-            ATBasicStyle(state, color: .blue)
+            ATMarbleStyle(state, color: .accentColor, marbleColor: Color.orange)
+//            ATCurveStyle(state, color: .blue, radius: 60, depth: -0.65)
         } content: {
             Text("Tab 1")
                 .tabItem(tag: 0, normal: {
@@ -42,7 +43,7 @@ struct TabViewPreview: View {
                 }, select: {
                     Text("Tab 1")
                         .bold()
-                        .foregroundColor(Color.yellow)
+                        .foregroundColor(Color.orange)
                 })
             Text("Tab 2")
                 .tabItem(tag: 1, normal: {
@@ -50,15 +51,31 @@ struct TabViewPreview: View {
                 }, select: {
                     Text("Tab 2")
                         .bold()
-                        .foregroundColor(Color.yellow)
+                        .foregroundColor(Color.orange)
                 })
             Text("Tab 3")
                 .tabItem(tag: 2, normal: {
                     Text("Tab 3")
                 }, select: {
+                    Text("Tab 3")
+                        .bold()
+                        .foregroundColor(Color.orange)
+                })
+            Text("Tab 4")
+                .tabItem(tag: 3, normal: {
+                    Text("Tab 4")
+                }, select: {
                     Text("Tab 4")
                         .bold()
-                        .foregroundColor(Color.yellow)
+                        .foregroundColor(Color.orange)
+                })
+            Text("Tab 5")
+                .tabItem(tag: 4, normal: {
+                    Text("Tab 5")
+                }, select: {
+                    Text("Tab 5")
+                        .bold()
+                        .foregroundColor(Color.orange)
                 })
         }
     }

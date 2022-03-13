@@ -20,9 +20,9 @@ struct ContentView: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink("BasicStyle") { BasicPreview()}
-                    NavigationLink("CapsuleStyle") { CapsulePreview()}
-                    NavigationLink("MaterialStyle") { MaterialPreview()}
+                    NavigationLink("Basic") { BasicPreview()}
+                    NavigationLink("Capsule") { CapsulePreview()}
+                    NavigationLink("Material") { MaterialPreview()}
                 } header: {
                     Text("Normal")
                 }
@@ -30,8 +30,9 @@ struct ContentView: View {
                 Section {
                     NavigationLink("Concave") { CurveConcavePreview()}
                     NavigationLink("Convex") { CurveConvexPreview()}
+                    NavigationLink("Marble") { MarblePreview()}
                 } header: {
-                    Text("CurveStyle")
+                    Text("Curve")
                 }
                 
                 Section {
