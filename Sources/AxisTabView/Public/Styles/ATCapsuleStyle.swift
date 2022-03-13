@@ -38,27 +38,25 @@ public struct ATCapsuleStyle: ATBackgroundStyle {
         self.horizontalSpacing = horizontalSpacing
     }
     
-    public var body: some View {
+    private var content: some View {
         let tabConstant = state.constant.tab
-        VStack(spacing: 0) {
-#if os(iOS)
-            if state.constant.axisMode == .top {
-                Spacer()
-            }
-#endif
-            Capsule()
-                .fill(color)
-                .padding(.horizontal, horizontalSpacing)
-                .frame(height: state.constant.tab.normalSize.height)
-                .shadow(color: tabConstant.shadow.color,
-                        radius: tabConstant.shadow.radius,
-                        x: tabConstant.shadow.x,
-                        y: tabConstant.shadow.y)
-#if os(iOS)
-            if state.constant.axisMode == .bottom {
-                Spacer()
-            }
-#endif
+        return Capsule()
+            .fill(color)
+            .padding(.horizontal, horizontalSpacing)
+            .frame(height: state.constant.tab.normalSize.height)
+            .shadow(color: tabConstant.shadow.color,
+                    radius: tabConstant.shadow.radius,
+                    x: tabConstant.shadow.x,
+                    y: tabConstant.shadow.y)
+    }
+    
+    public var body: some View {
+        if state.constant.axisMode == .top {
+            content
+                .padding(.top, state.safeAreaInsets.top)
+        }else {
+            content
+                .padding(.bottom, state.safeAreaInsets.bottom)
         }
     }
 }
