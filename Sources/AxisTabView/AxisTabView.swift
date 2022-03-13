@@ -102,6 +102,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                     .onTapGesture {
                         if let tag = item.tag as? SelectionValue {
                             self.viewModel.selection = tag
+                            if constant.tab.activeVibration { vibration() }
                         }
                     }
                     if index != items.count - 1 {
@@ -123,6 +124,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                     .onTapGesture {
                         if let tag = item.tag as? SelectionValue {
                             self.viewModel.selection = tag
+                            if constant.tab.activeVibration { vibration() }
                         }
                     }
                     if index == items.count - 1 {
@@ -151,6 +153,18 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
     private func getSafeArea(_ proxy: GeometryProxy) -> CGFloat {
         constant.axisMode == .bottom ? proxy.safeAreaInsets.bottom : proxy.safeAreaInsets.top
     }
+    
+    #if os(iOS)
+    /// The device generates vibrations.
+    /// - Parameter style: Vibration style.
+    private func vibration(_ style: UIImpactFeedbackGenerator.FeedbackStyle = .soft) {
+        let feedback = UIImpactFeedbackGenerator(style: style)
+        feedback.prepare()
+        feedback.impactOccurred()
+    }
+    #else
+    private func vibration() {}
+    #endif
 }
 
 public extension AxisTabView where SelectionValue: Hashable, Background: View, Content: View {

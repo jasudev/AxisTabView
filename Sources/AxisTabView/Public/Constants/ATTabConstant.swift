@@ -39,6 +39,7 @@ public struct ATTabConstant: Equatable {
     public var spacingMode: ATSpacingMode
     public var spacing: CGFloat
     public var shadow: ATShadowConstant
+    public var activeVibration: Bool
     public var transition: AnyTransition
     public var animation: Animation?
     
@@ -49,6 +50,7 @@ public struct ATTabConstant: Equatable {
     ///   - spacingMode: A mode that defines the spacing between tab buttons.
     ///   - spacing: Spacing between tab buttons when spacingMode is `.center`.
     ///   - shadow: The shadow of the background of the tab view.
+    ///   - activeVibration: Activate the device's vibration. Only iOS is supported.
     ///   - transition: A transition when a tab is selected.
     ///   - animation: Animation when selecting a tab.
     public init(normalSize: CGSize = CGSize(width: 50, height: 50),
@@ -56,6 +58,7 @@ public struct ATTabConstant: Equatable {
                 spacingMode: ATSpacingMode = .average,
                 spacing: CGFloat = 0,
                 shadow: ATShadowConstant = .init(),
+                activeVibration: Bool = true,
                 transition: AnyTransition = .opacity,
                 animation: Animation? = .easeInOut(duration: 0.28)) {
         self.normalSize = normalSize
@@ -63,6 +66,7 @@ public struct ATTabConstant: Equatable {
         self.spacingMode = spacingMode
         self.spacing = spacing
         self.shadow = shadow
+        self.activeVibration = activeVibration
         self.transition = transition
         self.animation = animation
     }
@@ -73,6 +77,7 @@ public struct ATTabConstant: Equatable {
         lhs.spacingMode == rhs.spacingMode &&
         lhs.spacing == rhs.spacing &&
         lhs.shadow == rhs.shadow &&
+        lhs.activeVibration == rhs.activeVibration &&
         lhs.animation == rhs.animation
     }
 }
