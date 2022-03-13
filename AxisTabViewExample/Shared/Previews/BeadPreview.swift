@@ -1,5 +1,5 @@
 //
-//  MarblePreview.swift
+//  BeadPreview.swift
 //  AxisTabViewExample
 //
 //  Created by jasu on 2022/03/13.
@@ -9,7 +9,7 @@
 import SwiftUI
 import AxisTabView
 
-struct MarblePreview: View {
+struct BeadPreview: View {
     
     @State private var selection: Int = 0
     @State private var constant = ATConstant(axisMode: .bottom, screen: .init(activeSafeArea: true), tab: .init())
@@ -23,14 +23,14 @@ struct MarblePreview: View {
         GeometryReader { proxy in
             AxisTabView(selection: $selection, constant: constant) { state in
                 if constant.axisMode == .bottom {
-                    ATMarbleStyle(state,
+                    ATBeadStyle(state,
                                   color: color,
                                   cornerRadius: cornerRadius,
                                   marbleColor: marbleColor,
                                   radius: radius,
                                   depth: depth)
                 }else {
-                    ATMarbleStyle(state,
+                    ATBeadStyle(state,
                                   color: color,
                                   cornerRadius: cornerRadius,
                                   marbleColor: marbleColor,
@@ -125,7 +125,7 @@ struct ControlView: View {
         VStack(spacing: 20) {
             ControlBasicView(selection: $selection, constant: $constant)
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Marble Style").opacity(0.5)
+                Text("● Bead Style").opacity(0.5)
                 HStack {
                     Text("Radius")
                     Spacer()
@@ -165,7 +165,7 @@ struct ControlView: View {
                 .labelsHidden()
                 
                 HStack {
-                    Text("Marble Color")
+                    Text("Bead Color")
                     Spacer()
                     ColorPicker("", selection: $marbleColor)
                 }
@@ -258,8 +258,8 @@ struct TabButton: View {
     }
 }
 
-struct MarblePreview_Previews: PreviewProvider {
+struct BeadPreview_Previews: PreviewProvider {
     static var previews: some View {
-        MarblePreview()
+        BeadPreview()
     }
 }

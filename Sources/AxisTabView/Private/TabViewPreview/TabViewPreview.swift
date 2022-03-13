@@ -34,7 +34,7 @@ struct TabViewPreview: View {
     init() {}
     var body: some View {
         AxisTabView(selection: $selection, constant: ATConstant(axisMode: .bottom)) { state in
-            ATMarbleStyle(state, color: .accentColor, marbleColor: Color.orange)
+            ATBeadStyle(state, color: .accentColor, marbleColor: Color.orange)
 //            ATCurveStyle(state, color: .blue, radius: 60, depth: -0.65)
         } content: {
             Text("Tab 1")

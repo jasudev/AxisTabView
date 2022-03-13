@@ -30,7 +30,7 @@ struct ContentView: View {
                 Section {
                     NavigationLink("Concave") { CurveConcavePreview()}
                     NavigationLink("Convex") { CurveConvexPreview()}
-                    NavigationLink("Marble") { MarblePreview()}
+                    NavigationLink("Bead") { BeadPreview()}
                 } header: {
                     Text("Curve")
                 }

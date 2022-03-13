@@ -1,5 +1,5 @@
 //
-//  ATMarbleStyle.swift
+//  ATBeadStyle.swift
 //  AxisTabView
 //
 //  Created by jasu on 2022/03/13.
@@ -25,8 +25,8 @@
 
 import SwiftUI
 
-/// Marble style for tab view.
-public struct ATMarbleStyle: ATBackgroundStyle {
+/// Bead style for tab view.
+public struct ATBeadStyle: ATBackgroundStyle {
     
     public var state: ATTabState
     public var color: Color
@@ -37,8 +37,10 @@ public struct ATMarbleStyle: ATBackgroundStyle {
     
     @State private var y: CGFloat = 0
     @State private var alpha: CGFloat = 1
+    @State private var dynamicRadius: CGFloat = 0
+    @State private var dynamicDepth: CGFloat = 0
     
-    public init(_ state: ATTabState, color: Color = .white, cornerRadius: CGFloat = 26, marbleColor: Color = .white, radius: CGFloat = 24, depth: CGFloat = 0.8) {
+    public init(_ state: ATTabState, color: Color = .white, cornerRadius: CGFloat = 26, marbleColor: Color = .white, radius: CGFloat = 30, depth: CGFloat = 0.8) {
         self.state = state
         self.color = color
         self.cornerRadius = cornerRadius
@@ -58,18 +60,26 @@ public struct ATMarbleStyle: ATBackgroundStyle {
                 .onAppear {
                     y = getCircleY()
                     alpha = 1.0
+                    dynamicRadius = radius
+                    dynamicDepth = depth
                 }
                 .onChange(of: state.currentIndex, perform: { newValue in
                     alpha = 0.0
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        y = state.constant.axisMode == .bottom ? 30 : state.constant.tab.normalSize.height + state.safeAreaInsets.top - 30
+                        dynamicRadius = 0
+                        dynamicDepth = 0
+                        y = state.constant.axisMode == .bottom ? 50 : state.constant.tab.normalSize.height + state.safeAreaInsets.top - 50
                     }
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.5, blendDuration: 0.5).delay(0.2)) {
+                    withAnimation(.spring(response: 0.32, dampingFraction: 0.5, blendDuration: 0.5).delay(0.2)) {
                         y = getCircleY()
                         alpha = 1.0
                     }
+                    withAnimation(.spring(response: 0.45, dampingFraction: 0.5, blendDuration: 0.5).delay(0.32)) {
+                        dynamicRadius = radius
+                        dynamicDepth = depth
+                    }
                 })
-            ATCurveShape(radius: radius, depth: depth, position: state.getCurrentDeltaX())
+            ATCurveShape(radius: dynamicRadius, depth: dynamicDepth, position: state.getCurrentDeltaX())
                 .fill(color)
                 .frame(height: tabConstant.normalSize.height + (state.constant.axisMode == .bottom ? state.safeAreaInsets.bottom : state.safeAreaInsets.top))
                 .scaleEffect(CGSize(width: 1, height: state.constant.axisMode == .bottom ? 1 : -1))
@@ -88,7 +98,7 @@ public struct ATMarbleStyle: ATBackgroundStyle {
     }
 }
 
-struct ATMarbleStyle_Previews: PreviewProvider {
+struct ATBeadStyle_Previews: PreviewProvider {
     static var previews: some View {
         TabViewPreview()
     }
