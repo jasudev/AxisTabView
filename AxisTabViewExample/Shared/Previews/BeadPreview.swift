@@ -238,11 +238,11 @@ struct TabButton: View {
         .offset(y: y)
         .onAppear {
             if isSelection {
-                withAnimation(.easeInOut(duration: 0.26)) {
-                    y = constant.axisMode == .top ? -20 : 20
-                }
                 withAnimation(.easeInOut(duration: 0.3).delay(0.25)) {
-                    y = constant.axisMode == .top ? -10 : 10
+                    y = constant.axisMode == .top ? -18 : 18
+                }
+                withAnimation(.easeInOut(duration: 0.3).delay(0.4)) {
+                    y = constant.axisMode == .top ? -15 : 15
                 }
             }else {
                 y = 0

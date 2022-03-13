@@ -63,6 +63,12 @@ public struct ATBeadStyle: ATBackgroundStyle {
                     dynamicRadius = radius
                     dynamicDepth = depth
                 }
+                .onChange(of: depth, perform: { newValue in
+                    dynamicDepth = depth
+                })
+                .onChange(of: radius, perform: { newValue in
+                    dynamicRadius = radius
+                })
                 .onChange(of: state.currentIndex, perform: { newValue in
                     alpha = 0.0
                     withAnimation(.easeInOut(duration: 0.3)) {
