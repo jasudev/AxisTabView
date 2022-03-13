@@ -16,6 +16,8 @@ A library that allows you to easily create various styles of tab views. Supports
 
 https://user-images.githubusercontent.com/1617304/158022934-d50b44be-a18f-4dbe-a079-09256823bba0.mov
 
+https://user-images.githubusercontent.com/1617304/158058477-eed42ea0-3b2d-496f-b978-f2f6628a3801.mov
+
 ## Example
 [https://fabulaapp.page.link/233](https://fabulaapp.page.link/233)
 
