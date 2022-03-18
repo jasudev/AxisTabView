@@ -26,7 +26,7 @@
 import SwiftUI
 
 /// A viewmodel that manages the current and previous values of the selected tab.
-class ATStateViewModel<SelectionValue: Equatable>: ObservableObject {
+class ATStateViewModel<SelectionValue: Hashable>: ObservableObject {
     
     /// The tag of the previously selected tab.
     var previousSelection: SelectionValue? = nil
