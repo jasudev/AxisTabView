@@ -59,7 +59,7 @@ struct ControlView: View {
         VStack(spacing: 20) {
             ControlBasicView(selection: $selection, constant: $constant)
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Center Style").opacity(0.5)
+                Text("● Center Style").opacity(0.5).font(.caption)
                 HStack {
                     Text("Color")
                     Spacer()

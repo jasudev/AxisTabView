@@ -17,7 +17,7 @@ struct ControlBasicView: View {
     var body: some View {
         Group {
             VStack(alignment: .leading, spacing: 8) {
-                Text("● AxisMode").opacity(0.5)
+                Text("● AxisMode").opacity(0.5).font(.caption)
                 Picker(selection: $constant.axisMode) {
                     Text("Top")
                         .tag(ATAxisMode.top)
@@ -32,7 +32,7 @@ struct ControlBasicView: View {
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Screen Transition").opacity(0.5)
+                Text("● Screen Transition").opacity(0.5).font(.caption)
                 Picker(selection: $constant.screen.transitionMode) {
                     Text("Slide")
                         .tag(ATTransitionMode.slide(50))
@@ -54,7 +54,7 @@ struct ControlBasicView: View {
                 .padding(.horizontal)
             }
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Tab Normal Size").opacity(0.5)
+                Text("● Tab Normal Size").opacity(0.5).font(.caption)
                 HStack {
                     Text("W").frame(width: 24, alignment: .leading)
                     Spacer()
@@ -73,7 +73,7 @@ struct ControlBasicView: View {
                 .padding(.leading)
             }
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Tab Select Width").opacity(0.5)
+                Text("● Tab Select Width").opacity(0.5).font(.caption)
                 HStack {
                     Text("W").frame(width: 24, alignment: .leading)
                     Spacer()
@@ -85,7 +85,7 @@ struct ControlBasicView: View {
                 .padding(.leading)
             }
             VStack(alignment: .leading, spacing: 8) {
-                Text("● Tab Spacing").opacity(0.5)
+                Text("● Tab Spacing").opacity(0.5).font(.caption)
                 Picker(selection: $constant.tab.spacingMode) {
                     Text("Center")
                         .tag(ATSpacingMode.center)
