@@ -50,6 +50,11 @@ AxisTabView(selection: $selection, constant: ATConstant(axisMode: .bottom)) { st
                 .bold()
                 .foregroundColor(Color.yellow)
         })
+} onTapReceive: { selectionTap in
+    /// Imperative syntax
+    print("---------------------")
+    print("Selection : ", selectionTap)
+    print("Already selected : ", self.selection == selectionTap)
 }
 ```
   

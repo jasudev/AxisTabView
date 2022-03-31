@@ -27,6 +27,11 @@ struct CenterPreview: View {
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 2, systemName: "plus.circle.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 3, systemName: "04.circle.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 4, systemName: "05.circle.fill", safeArea: proxy.safeAreaInsets)
+            } onTapReceive: { selectionTap in
+                /// Imperative syntax
+                print("---------------------")
+                print("Selection : ", selectionTap)
+                print("Already selected : ", self.selection == selectionTap)
             }
         }
         .animation(.easeInOut, value: constant)

@@ -27,6 +27,11 @@ struct LinePreview: View {
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 2, systemName: "03.square.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 3, systemName: "04.square.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 4, systemName: "05.square.fill", safeArea: proxy.safeAreaInsets)
+            } onTapReceive: { selectionTap in
+                /// Imperative syntax
+                print("---------------------")
+                print("Selection : ", selectionTap)
+                print("Already selected : ", self.selection == selectionTap)
             }
         }
         .animation(.easeInOut, value: constant)

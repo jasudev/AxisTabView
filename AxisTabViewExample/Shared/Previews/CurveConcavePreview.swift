@@ -28,6 +28,11 @@ struct CurveConcavePreview: View {
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 3, systemName: "04.circle.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 4, systemName: "05.circle.fill", safeArea: proxy.safeAreaInsets)
                 ControlView(selection: $selection, constant: $constant, radius: $radius, concaveDepth: $concaveDepth, color: $color, tag: 5, systemName: "06.circle.fill", safeArea: proxy.safeAreaInsets)
+            } onTapReceive: { selectionTap in
+                /// Imperative syntax
+                print("---------------------")
+                print("Selection : ", selectionTap)
+                print("Already selected : ", self.selection == selectionTap)
             }
         }
         .animation(.easeInOut, value: constant)

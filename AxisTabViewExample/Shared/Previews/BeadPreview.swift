@@ -89,6 +89,11 @@ struct BeadPreview: View {
                             systemName: "05.circle.fill",
                             safeArea: proxy.safeAreaInsets)
                 
+            } onTapReceive: { selectionTap in
+                /// Imperative syntax
+                print("---------------------")
+                print("Selection : ", selectionTap)
+                print("Already selected : ", self.selection == selectionTap)
             }
         }
         .animation(.easeInOut, value: constant)

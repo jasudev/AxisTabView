@@ -27,15 +27,24 @@ import SwiftUI
 
 public struct AxisTabView<SelectionValue, Background, Content> : View where SelectionValue : Hashable, Background : View, Content : View {
     
-    private let viewModel: ATViewModel<SelectionValue>
     @StateObject private var stateViewModel: ATStateViewModel<SelectionValue> = .init()
-    
+    private let viewModel: ATViewModel<SelectionValue>
+    private var selection: Binding<SelectionValue> { Binding(
+        get: { self.viewModel.selection },
+            set: {
+                self.onTapReceive?($0)
+                self.viewModel.selection = $0
+            }
+        )
+    }
+
     /// Defines the settings for the tab view.
     private let constant: ATConstant
     
     /// The style of the background view.
     public var background: ((ATTabState) -> Background)
     public var content:  () -> Content
+    public var onTapReceive: ((SelectionValue) -> Void)?
     
     public var body: some View {
         GeometryReader { proxy in
@@ -47,7 +56,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                 }
                 .overlayPreferenceValue(ATTabItemPreferenceKey.self) { items in
                     let items = items.prefix(getLimitItemCount(size: proxy.size, itemCount: items.count))
-                    let state = ATTabState(constant: constant, itemCount: items.count, previousIndex: stateViewModel.previousIndex, currentIndex: stateViewModel.indexOfTag(viewModel.selection), size: proxy.size, safeAreaInsets: proxy.safeAreaInsets)
+                    let state = ATTabState(constant: constant, itemCount: items.count, previousIndex: stateViewModel.previousIndex, currentIndex: stateViewModel.indexOfTag(selection.wrappedValue), size: proxy.size, safeAreaInsets: proxy.safeAreaInsets)
                     VStack(spacing: 0) {
                         if constant.axisMode == .bottom {
                             Spacer()
@@ -55,7 +64,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                         getTabContent(Array(items))
                             .frame(width: proxy.size.width, height: constant.tab.normalSize.height)
                             .padding(edgeSet, getSafeArea(proxy))
-                            .animation(constant.tab.animation ?? .none, value: viewModel.selection)
+                            .animation(constant.tab.animation ?? .none, value: self.selection.wrappedValue)
                             .background(background(state))
                         if constant.axisMode == .top {
                             Spacer()
@@ -76,7 +85,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
     
     //MARK: - Methods
     private func getItemWidth(tag: SelectionValue) -> CGFloat {
-        if tag == self.viewModel.selection {
+        if tag == self.selection.wrappedValue {
             if constant.tab.selectWidth > 0 {
                 return constant.tab.selectWidth
             }
@@ -89,7 +98,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
             ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                 if constant.tab.spacingMode == .center {
                     ZStack {
-                        if item.tag as! SelectionValue == viewModel.selection {
+                        if item.tag as! SelectionValue == self.selection.wrappedValue {
                             item.select
                                 .transition(constant.tab.transition)
                         }else {
@@ -101,7 +110,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                            height: constant.tab.normalSize.height)
                     .onTapGesture {
                         if let tag = item.tag as? SelectionValue {
-                            self.viewModel.selection = tag
+                            self.selection.wrappedValue = tag
                             if constant.tab.activeVibration { vibration() }
                         }
                     }
@@ -111,7 +120,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                 }else {
                     Spacer()
                     ZStack {
-                        if item.tag as! SelectionValue == viewModel.selection {
+                        if item.tag as! SelectionValue == self.selection.wrappedValue {
                             item.select
                                 .transition(constant.tab.transition)
                         }else {
@@ -123,7 +132,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                            height: constant.tab.normalSize.height)
                     .onTapGesture {
                         if let tag = item.tag as? SelectionValue {
-                            self.viewModel.selection = tag
+                            self.selection.wrappedValue = tag
                             if constant.tab.activeVibration { vibration() }
                         }
                     }
@@ -175,11 +184,13 @@ public extension AxisTabView where SelectionValue: Hashable, Background: View, C
     ///   - constant: Defines the settings for the tab view.
     ///   - background: The style of the background view.
     ///   - content: Content views with tab items applied.
-    init(selection: Binding<SelectionValue>, constant: ATConstant = .init(), @ViewBuilder background: @escaping (ATTabState) -> Background, @ViewBuilder content: @escaping () -> Content) {
+    ///   - onTapReceive: Method that treats the currently selected tab as imperative syntax.
+    init(selection: Binding<SelectionValue>, constant: ATConstant = .init(), @ViewBuilder background: @escaping (ATTabState) -> Background, @ViewBuilder content: @escaping () -> Content, onTapReceive: ((SelectionValue) -> Void)? = nil) {
         self.viewModel = ATViewModel(selection: selection, constant: constant)
         self.background = background
         self.constant = constant
         self.content = content
+        self.onTapReceive = onTapReceive
     }
 }
 
