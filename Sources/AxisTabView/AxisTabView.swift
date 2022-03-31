@@ -31,13 +31,12 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
     private let viewModel: ATViewModel<SelectionValue>
     private var selection: Binding<SelectionValue> { Binding(
         get: { self.viewModel.selection },
-            set: {
-                self.onTapReceive?($0)
-                self.viewModel.selection = $0
-            }
-        )
+        set: {
+            self.onTapReceive?($0)
+            self.viewModel.selection = $0
+        })
     }
-
+    
     /// Defines the settings for the tab view.
     private let constant: ATConstant
     
@@ -163,7 +162,7 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
         constant.axisMode == .bottom ? proxy.safeAreaInsets.bottom : proxy.safeAreaInsets.top
     }
     
-    #if os(iOS)
+#if os(iOS)
     /// The device generates vibrations.
     /// - Parameter style: Vibration style.
     private func vibration(_ style: UIImpactFeedbackGenerator.FeedbackStyle = .soft) {
@@ -171,9 +170,9 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
         feedback.prepare()
         feedback.impactOccurred()
     }
-    #else
+#else
     private func vibration() {}
-    #endif
+#endif
 }
 
 public extension AxisTabView where SelectionValue: Hashable, Background: View, Content: View {
