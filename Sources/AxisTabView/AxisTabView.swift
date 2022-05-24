@@ -54,20 +54,24 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
                         .padding(edgeSet, constant.screen.activeSafeArea ? constant.tab.normalSize.height + getSafeArea(proxy) : 0)
                 }
                 .overlayPreferenceValue(ATTabItemPreferenceKey.self) { items in
-                    let items = items.prefix(getLimitItemCount(size: proxy.size, itemCount: items.count))
-                    let state = ATTabState(constant: constant, itemCount: items.count, previousIndex: stateViewModel.previousIndex, currentIndex: stateViewModel.indexOfTag(selection.wrappedValue), size: proxy.size, safeAreaInsets: proxy.safeAreaInsets)
-                    VStack(spacing: 0) {
-                        if constant.axisMode == .bottom {
-                            Spacer()
+                    if !items.isEmpty {
+                        let items = items.prefix(getLimitItemCount(size: proxy.size, itemCount: items.count))
+                        let state = ATTabState(constant: constant, itemCount: items.count, previousIndex: stateViewModel.previousIndex, currentIndex: stateViewModel.indexOfTag(selection.wrappedValue), size: proxy.size, safeAreaInsets: proxy.safeAreaInsets)
+                        VStack(spacing: 0) {
+                            if constant.axisMode == .bottom {
+                                Spacer()
+                            }
+                            getTabContent(Array(items))
+                                .frame(width: proxy.size.width, height: constant.tab.normalSize.height)
+                                .padding(edgeSet, getSafeArea(proxy))
+                                .animation(constant.tab.animation ?? .none, value: self.selection.wrappedValue)
+                                .background(background(state))
+                            if constant.axisMode == .top {
+                                Spacer()
+                            }
                         }
-                        getTabContent(Array(items))
-                            .frame(width: proxy.size.width, height: constant.tab.normalSize.height)
-                            .padding(edgeSet, getSafeArea(proxy))
-                            .animation(constant.tab.animation ?? .none, value: self.selection.wrappedValue)
-                            .background(background(state))
-                        if constant.axisMode == .top {
-                            Spacer()
-                        }
+                    }else {
+                        EmptyView()
                     }
                 }
                 .edgesIgnoringSafeArea(edgeSet)
