@@ -156,7 +156,8 @@ public struct AxisTabView<SelectionValue, Background, Content> : View where Sele
     private func getLimitItemCount(size: CGSize, itemCount: Int) -> Int {
         guard itemCount > 0 else { return 0 }
         let total = size.width - (constant.tab.selectWidth > 0 ? constant.tab.selectWidth : constant.tab.normalSize.width)
-        return Int(total * 0.85 / constant.tab.normalSize.width) + 1
+        let value = Int(total * 0.85 / constant.tab.normalSize.width) + 1
+        return value < 0 ? 0 : value
     }
     
     /// Returns the safe area value according to the axisMode.
